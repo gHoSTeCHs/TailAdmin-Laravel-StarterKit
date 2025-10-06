@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router';
+import { Link } from '@inertiajs/react';
+import { usePage } from '@inertiajs/react';
 
 // Assume these icons are imported from an icon library
 import {
@@ -102,7 +103,7 @@ const othersItems: NavItem[] = [
 
 const AppSidebar: React.FC = () => {
 	const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
-	const location = useLocation();
+	const { url } = usePage();
 
 	const [openSubmenu, setOpenSubmenu] = useState<{
 		type: 'main' | 'others';
@@ -113,10 +114,9 @@ const AppSidebar: React.FC = () => {
 	);
 	const subMenuRefs = useRef<Record<string, HTMLDivElement | null>>({});
 
-	// const isActive = (path: string) => location.pathname === path;
 	const isActive = useCallback(
-		(path: string) => location.pathname === path,
-		[location.pathname]
+		(path: string) => url === path,
+		[url]
 	);
 
 	useEffect(() => {
@@ -141,7 +141,7 @@ const AppSidebar: React.FC = () => {
 		if (!submenuMatched) {
 			setOpenSubmenu(null);
 		}
-	}, [location, isActive]);
+	}, [url, isActive]);
 
 	useEffect(() => {
 		if (openSubmenu !== null) {
@@ -209,7 +209,7 @@ const AppSidebar: React.FC = () => {
 					) : (
 						nav.path && (
 							<Link
-								to={nav.path}
+								href={nav.path}
 								className={`menu-item group ${
 									isActive(nav.path) ? 'menu-item-active' : 'menu-item-inactive'
 								}`}>
@@ -243,7 +243,7 @@ const AppSidebar: React.FC = () => {
 								{nav.subItems.map((subItem) => (
 									<li key={subItem.name}>
 										<Link
-											to={subItem.path}
+											href={subItem.path}
 											className={`menu-dropdown-item ${
 												isActive(subItem.path)
 													? 'menu-dropdown-item-active'
@@ -301,7 +301,7 @@ const AppSidebar: React.FC = () => {
 				className={`py-8 flex ${
 					!isExpanded && !isHovered ? 'lg:justify-center' : 'justify-start'
 				}`}>
-				<Link to="/">
+				<Link href="/">
 					{isExpanded || isHovered || isMobileOpen ? (
 						<>
 							<img

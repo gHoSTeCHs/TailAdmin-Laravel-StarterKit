@@ -1,5 +1,5 @@
 import type React from 'react';
-import { Link } from 'react-router';
+import { Link } from '@inertiajs/react';
 
 interface DropdownItemProps {
 	tag?: 'a' | 'button';
@@ -74,7 +74,7 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({
 
 	if (tag === 'a' && to && !disabled) {
 		return (
-			<Link to={to} className={combinedClasses} onClick={handleClick}>
+			<Link href={to} className={combinedClasses} onClick={handleClick}>
 				{content}
 			</Link>
 		);

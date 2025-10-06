@@ -4,8 +4,9 @@ import MonthlySalesChart from "@/components/ecommerce/MonthlySalesChart";
 import MonthlyTarget from "@/components/ecommerce/MonthlyTarget";
 import RecentOrders from "@/components/ecommerce/RecentOrders";
 import StatisticsChart from "@/components/ecommerce/StatisticsChart";
+import AppLayout from "@/layout/AppLayout";
 
-export default function Home() {
+export default function Dashboard() {
     return (
         <>
             <div className="grid grid-cols-12 gap-4 md:gap-6">
@@ -34,3 +35,5 @@ export default function Home() {
         </>
     );
 }
+
+Dashboard.layout = (page: React.ReactNode) => <AppLayout>{page}</AppLayout>;
