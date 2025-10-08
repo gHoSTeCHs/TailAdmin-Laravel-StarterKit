@@ -9,10 +9,13 @@ export default defineConfig({
     plugins: [
         laravel({
             input: ["resources/css/app.css", "resources/js/app.js"],
+            ssr: "resources/js/ssr.tsx",
             refresh: true,
         }),
         react(),
-        wayfinder(),
+        wayfinder({
+            formVariants: true,
+        }),
         tailwindcss(),
         svgr({
             svgrOptions: {
